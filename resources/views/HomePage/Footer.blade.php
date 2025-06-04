@@ -27,10 +27,10 @@
               <div class="col-md-4 mb-4">
                   <h5 class="fw-bold">Sosial Media</h5>
                   <div class="d-flex gap-3">
-                      <a href="#" class="text-white fs-4"><i data-lucide="instagram"></i></a>
-                      <a href="#" class="text-white fs-4"><i data-lucide="facebook"></i></a>
-                      <a href="#" class="text-white fs-4"><i data-lucide="twitter"></i></a>
-                      <a href="#" class="text-white fs-4"><i data-lucide="youtube"></i></a>
+                      <a href="#" class="text-white fs-4 shake-on-hover"><i data-lucide="instagram"></i></a>
+                      <a href="#" class="text-white fs-4 shake-on-hover"><i data-lucide="facebook"></i></a>
+                      <a href="#" class="text-white fs-4 shake-on-hover"><i data-lucide="twitter"></i></a>
+                      <a href="#" class="text-white fs-4 shake-on-hover"><i data-lucide="youtube"></i></a>
                   </div>
               </div>
           </div>
