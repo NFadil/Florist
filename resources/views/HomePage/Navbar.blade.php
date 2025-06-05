@@ -12,7 +12,7 @@
          <div class="collapse navbar-collapse" id="navbarNav">
              <ul class="navbar-nav mx-auto mb-2 mb-md-0 text-center">
                  <li class="nav-item"><a class="nav-link" href="/beranda">Beranda</a></li>
-                 <li class="nav-item"><a class="nav-link" href="/produk">Produk</a></li>
+                 <li class="nav-item"><a class="nav-link" href="{{ route('Produk.show') }}">Produk</a></li>
                  <li class="nav-item"><a class="nav-link" href="/about">Tentang Kami</a></li>
                  <li class="nav-item"><a class="nav-link" href="/pesanan">Pesanan</a></li>
              </ul>

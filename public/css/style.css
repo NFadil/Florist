@@ -1,0 +1,134 @@
+body {
+    font-family: "Segoe UI", sans-serif;
+    line-height: 1.7;
+    background-color: #f4f6f9;
+    color: #333;
+}
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.card-text {
+    font: "Segoe UI", sans-serif;
+    font-size: 14px;
+    color: #666;
+}
+.navbar-transparent {
+    backdrop-filter: blur(10px);
+}
+
+.navbar-transparent .nav-link,
+.navbar-transparent .navbar-brand {
+    color: #000000 !important;
+}
+
+.navbar-transparent .nav-link:hover {
+    color: #000000 !important;
+}
+
+.hero {
+    background: linear-gradient(135deg, #f1e5ba 0%, #dfdae2 100%);
+    padding: 140px 0 100px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #000000;
+}
+
+.hero h2 {
+    font-size: 1.5rem;
+    color: #555;
+}
+.hero p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.hero-img {
+    max-width: 320px;
+    width: 100%;
+    /* border-radius: 50%; */
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid #f1e5ba;
+    padding-left: 12px;
+    color: #333;
+}
+
+.portfolio img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portfolio img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form input,
+.contact-form textarea {
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #f1e5ba;
+    outline: none;
+}
+
+footer {
+    background: #eadfb5;
+    text-align: center;
+    padding: 15px;
+    /* margin-top: 50px; */
+    font-size: 0.95rem;
+    color: #555;
+}
+.icon-link {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #333; /* Warna border */
+    border-radius: 50%; /* Biar bulat */
+    font-size: 20px;
+    color: #333; /* Warna ikon */
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.icon-link:hover {
+    background-color: #333;
+    color: #fff;
+}
+.btn-custom {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 50px; /* Biar lonjong */
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-custom:hover {
+    background-color: #797575;
+    color: #fff;
+}

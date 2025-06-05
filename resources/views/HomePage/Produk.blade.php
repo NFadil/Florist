@@ -8,12 +8,9 @@
             transform: scale(1.02);
         }
 
-        /* Banner hover efek */
         .promo-banner {
             width: 100%;
-            /* Lebar memenuhi parent container */
             height: 224px;
-            /* Tinggi tetap 224px */
             object-fit: cover;
             position: relative;
             overflow: hidden;
@@ -37,6 +34,7 @@
     </style>
 
     <div class="container pt-5 pb-5 mt-5">
+        <!-- Search -->
         <div class="row mb-4 align-items-center">
             <div class="col-md-10 mb-3 mb-md-0 position-relative">
                 <input type="text" class="form-control ps-5 py-3 rounded-pill" placeholder="Cari produk...">
@@ -45,67 +43,45 @@
                 </span>
             </div>
             <div class="col-md-2">
-                <button type="submit" style="background-color:#ffc7bd" class="btn w-100 py-3 rounded-pill fw-semibold">
-                    Cari
-                </button>
+                <button type="submit" style="background-color:#ffc7bd"
+                    class="btn w-100 py-3 rounded-pill fw-semibold">Cari</button>
             </div>
         </div>
 
-
         <!-- Kategori Card -->
-        <div class="mb-5 text-center"> {{-- Ubah mb-4 jadi mb-5 --}}
+        <div class="mb-5 text-center">
             <h5 class="mb-3">Kategori</h5>
             <div class="row g-3 justify-content-center">
-                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                    <div class="card text-center border-primary category-card" style="cursor: pointer;">
-                        <div class="card-body py-3">
-                            <img src="img/bouquet.png" alt="Buket" style="width:40px; height:40px;" class="mb-2">
-                            <p class="mb-0 fw-semibold text-primary">Buket</p>
+                <!-- contoh kategori statis -->
+                @foreach ($categories as $cat)
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                        <div class="card text-center border-primary category-card" style="cursor: pointer;">
+                            <div class="card-body py-3">
+                                <img src="/img/{{ $cat->gambar }}" alt="{{ $cat->name }}"
+                                    style="width:40px; height:40px;" class="mb-2">
+                                <p class="mb-0 fw-semibold text-primary">{{ $cat->name }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                    <div class="card text-center border-success category-card" style="cursor: pointer;">
-                        <div class="card-body py-3">
-                            <img src="img/teddy-bear.png" alt="Buket Boneka" style="width:40px; height:40px;"
-                                class="mb-2">
-                            <p class="mb-0 fw-semibold text-success">Buket Boneka</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                    <div class="card text-center border-danger category-card" style="cursor: pointer;">
-                        <div class="card-body py-3">
-                            <img src="img/party.png" alt="Papan Bunga" style="width:40px; height:40px;" class="mb-2">
-                            <p class="mb-0 fw-semibold text-danger">Papan Bunga</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
 
         <!-- Produk Grid -->
         <h5 class="mb-3">Semua Produk</h5>
         <div class="row g-4">
-            @for ($i = 0; $i < 12; $i++)
+            @foreach ($products as $index => $item)
                 <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                     <div class="card h-100 shadow-sm">
-                        <img src="img/cherry-blossom.png" class="card-img-top img-fluid" alt="Produk"
-                            style="height: 200px; object-fit: cover;">
+                        <img src="/img/{{ $item->gambars->first()->gambar ?? 'default.png' }}"
+                            class="card-img-top img-fluid" alt="Produk" style="height: 200px; object-fit: cover;">
                         <div class="card-body d-flex flex-column">
-                            <h6 class="card-title mb-1">Buket Tulip Pink</h6>
-                            <small class="text-muted mb-1">Kategori: Tulip</small>
-                            <p class="card-text fw-bold mb-2">Rp200.000</p>
+                            <h6 class="card-title mb-1">{{ $item->nama }}</h6>
+                            <small class="text-muted mb-1">{{ $item->category->name }}</small>
+                            <p class="card-text fw-bold mb-2">Rp.{{ number_format($item->harga, 0, ',', '.') }}</p>
                             <button type="button" class="btn text-dark px-4 py-2 rounded-pill"
                                 style="background-color:#ffc7bd" data-bs-toggle="modal" data-bs-target="#productDetailModal"
-                                onclick="showProductDetail(
-        'Buket Tulip Pink',
-        'Tulip',
-        'Rp200.000',
-        'Stok 12',
-        'Buket bunga dengan kombinasi tulip pink yang elegan dan cocok untuk hadiah istimewa.',
-        'img/cherry-blossom.png'
-    )">
+                                onclick='showProductDetail(@json($item))'>
                                 Lihat Detail
                             </button>
 
@@ -113,73 +89,58 @@
                     </div>
                 </div>
 
-                @if ($i + 1 == 6)
-                    <!-- Banner Iklan Pertama -->
+                @if ($index + 1 == 6)
+                    <!-- Promo Banner -->
                     <div class="col-12 mb-4">
                         <div class="promo-banner position-relative">
                             <img src="img/s.png" alt="Promo Spesial 1" class="img-fluid w-100" style="border-radius: 10px;">
-                            <div class="promo-content position-absolute top-50 start-50 translate-middle text-center text-white"
-                                style="text-shadow: 1px 1px 3px rgba(0,0,0,0.7);">
+                            <div
+                                class="promo-content position-absolute top-50 start-50 translate-middle text-center text-white">
                                 <h4>Promo Spesial!</h4>
                                 <p>Dapatkan diskon hingga 20% untuk pembelian buket bunga hari ini.</p>
                             </div>
                         </div>
                     </div>
-                @elseif ($i + 1 == 12)
-                    <!-- Banner Iklan Kedua -->
-                    <div class="col-12 mb-4">
-                        <div class="promo-banner position-relative">
-                            <img src="img/orang.png" alt="Promo Spesial 2" class="img-fluid w-100"
-                                style="border-radius: 10px;">
-                            <div class="promo-content position-absolute top-50 start-50 translate-middle text-center text-white"
-                                style="text-shadow: 1px 1px 3px rgba(0,0,0,0.7);">
-                                <h4>Penawaran Terbatas!</h4>
-                                <p>Gratis ongkir untuk semua buket bunga di akhir pekan ini.</p>
+                @endif
+            @endforeach
+        </div>
+
+        <!-- Modal Produk -->
+        <div class="modal fade" id="productDetailModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Detail Produk</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body row">
+                        <div class="col-md-5">
+                            <div id="modalCarousel" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner" id="modalCarouselInner"></div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel"
+                                    data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#modalCarousel"
+                                    data-bs-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                </button>
                             </div>
                         </div>
-                    </div>
-                @endif
-            @endfor
-        </div>
-        <!-- Tombol Back to Top -->
-        <button id="backToTopBtn" title="Ke atas"
-            style="display:none; position: fixed; bottom: 40px; right: 40px; 
-           z-index: 1000; background-color: #ffc7bd; border:none; 
-           padding: 10px 15px; border-radius: 50px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
-           cursor: pointer; font-weight: 600;"><i
-                data-lucide="arrow-up-from-line"></i>
-        </button>
-
-    </div>
-
-    <!-- Modal Produk -->
-    <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="productDetailLabel">Detail Produk</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                </div>
-                <div class="modal-body row">
-                    <div class="col-md-5">
-                        <img id="modalProductImage" src="" class="img-fluid rounded" alt="Produk">
-                    </div>
-                    <div class="col-md-7">
-                        <h5 id="modalProductName">Nama Produk</h5>
-                        <p id="modalProductCategory" class="text-muted">Kategori: -</p>
-                        <p id="modalProductPrice" class="fw-bold">Rp0</p>
-                        <p id="modalProductDescription">Deskripsi produk akan ditampilkan di sini.</p>
-                        <p>Stok: <span id="modalProductStock">-</span></p>
-
-                        <div class="input-group mb-3" style="width: 140px;">
-                            <button class="btn btn-outline-secondary" type="button" id="decreaseQty">-</button>
-                            <input type="text" class="form-control text-center" value="1" id="productQty">
-                            <button class="btn btn-outline-secondary" type="button" id="increaseQty">+</button>
+                        <div class="col-md-7">
+                            <h5 id="modalProductName"></h5>
+                            <p id="modalProductCategory" class="text-muted"></p>
+                            <p id="modalProductPrice" class="fw-bold"></p>
+                            <p id="modalProductDescription"></p>
+                            <p>Stok: <span id="modalProductStock"></span></p>
+                            <div class="input-group mb-3" style="width: 140px;">
+                                <button class="btn btn-outline-secondary" type="button" id="decreaseQty">-</button>
+                                <input type="text" class="form-control text-center" value="1" id="productQty">
+                                <button class="btn btn-outline-secondary" type="button" id="increaseQty">+</button>
+                            </div>
+                            <button class="btn text-white fw-semibold" style="background-color:#ffc7bd">Masukkan ke
+                                Keranjang</button>
                         </div>
-
-                        <button class="btn text-white fw-semibold" style="background-color:#ffc7bd">
-                            Masukkan ke Keranjang
-                        </button>
                     </div>
                 </div>
             </div>
@@ -187,24 +148,32 @@
     </div>
 
     <script>
-        // Ambil tombol
-        const backToTopBtn = document.getElementById("backToTopBtn");
+        function showProductDetail(product) {
+            document.getElementById('modalProductName').textContent = product.nama;
+            document.getElementById('modalProductCategory').textContent = "Kategori: " + product.category.name;
+            document.getElementById('modalProductPrice').textContent = "Rp. " + new Intl.NumberFormat('id-ID').format(
+                product.harga);
+            document.getElementById('modalProductDescription').textContent = product.deskripsi;
+            document.getElementById('modalProductStock').textContent = product.stok;
+            document.getElementById('productQty').value = 1;
 
-        // Tampilkan tombol saat scroll > 300px
-        window.onscroll = function() {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                backToTopBtn.style.display = "block";
+            const carouselInner = document.getElementById('modalCarouselInner');
+            carouselInner.innerHTML = '';
+
+            if (product.gambars && product.gambars.length > 0) {
+                product.gambars.forEach((img, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'carousel-item' + (index === 0 ? ' active' : '');
+                    div.innerHTML =
+                        `<img src="/img/${img.gambar}" class="d-block w-100 rounded" style="object-fit:cover; height:300px;">`;
+                    carouselInner.appendChild(div);
+                });
             } else {
-                backToTopBtn.style.display = "none";
+                carouselInner.innerHTML =
+                    '<div class="carousel-item active"><img src="/img/default.png" class="d-block w-100"></div>';
             }
-        };
 
-        // Scroll ke atas dengan smooth saat tombol diklik
-        backToTopBtn.addEventListener("click", () => {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        });
+        }
     </script>
+
 @endsection
