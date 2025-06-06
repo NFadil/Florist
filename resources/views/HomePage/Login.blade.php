@@ -102,16 +102,28 @@
         <div class="login-image"></div>
         <div class="login-form">
             <h3 class="mb-4 text-center" style="color:#c75b5b;">Masuk ke Akun</h3>
+            @if ($errors->has('login_fail'))
+                <div class="alert alert-danger">
+                    {{ $errors->first('login_fail') }}
+                </div>
+            @endif
             <form action="/login" method="POST">
+                @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label">Alamat Email</label>
-                    <input type="email" class="form-control" id="email" name="email"
-                        placeholder="email@example.com" required />
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Masukan Email"
+                        value="{{ old('email') }}" />
+                    @error('email')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-4">
                     <label for="password" class="form-label">Kata Sandi</label>
                     <input type="password" class="form-control" id="password" name="password"
-                        placeholder="Masukkan kata sandi" required />
+                        placeholder="Masukkan kata sandi" />
+                    @error('password')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <button type="submit" class="btn btn-login w-100 py-2 rounded-pill">Masuk</button>
             </form>

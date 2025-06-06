@@ -12,7 +12,7 @@ class Product extends Model
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
     protected $fillable = ['nama', 'deskripsi', 'slug', 'stok', 'harga', 'category_id'];
-    protected $with     = ['Category'];
+    protected $with     = ['category', 'gambars'];
 
     public function category(): BelongsTo
     {

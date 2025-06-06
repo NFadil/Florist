@@ -14,13 +14,29 @@
                  <li class="nav-item"><a class="nav-link" href="/beranda">Beranda</a></li>
                  <li class="nav-item"><a class="nav-link" href="{{ route('Produk.show') }}">Produk</a></li>
                  <li class="nav-item"><a class="nav-link" href="/about">Tentang Kami</a></li>
-                 <li class="nav-item"><a class="nav-link" href="/pesanan">Pesanan</a></li>
+                 <li class="nav-item"><a class="nav-link" href="{{ route('User.Pesanan') }}">Pesanan</a></li>
              </ul>
              <div class="d-flex align-items-center gap-3">
-                 <a href="/login" class="btn text-dark px-4 py-2 rounded-pill"
-                     style="background-color:#ffc7bd">Masuk</a>
-                 <a href="/keranjang" class="text-dark"><i data-lucide="shopping-cart" class="shake-on-hover"></i></a>
+                 @guest
+                     <!-- User belum login -->
+                     <a href="{{ route('login') }}" class="btn text-dark px-4 py-2 rounded-pill"
+                         style="background-color:#ffc7bd">Masuk</a>
+                 @else
+                     <!-- User sudah login -->
+                     <a href="{{ route('logout') }}" class="btn text-dark px-4 py-2 rounded-pill"
+                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                         style="background-color:#ffc7bd">Logout</a>
+                     <a href="/keranjang" class="text-dark">
+                         <i data-lucide="shopping-cart" class="shake-on-hover"></i>
+                     </a>
+
+                     <!-- Form logout tersembunyi -->
+                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                         @csrf
+                     </form>
+                 @endguest
              </div>
+
          </div>
      </nav>
  </header>

@@ -20,5 +20,29 @@ class GambarProdukSeeder extends Seeder
             'produk_id' => 1,
             'gambar'    => 'bunga2.png',
         ]);
+        Gambar_Produk::create([
+            'produk_id' => 2,
+            'gambar'    => 'bunga2.png',
+        ]);
+        Gambar_Produk::create([
+            'produk_id' => 2,
+            'gambar'    => 'bunga.webp',
+        ]);
+        Gambar_Produk::create([
+            'produk_id' => 3,
+            'gambar'    => 'bunga.webp',
+        ]);
+        Gambar_Produk::create([
+            'produk_id' => 3,
+            'gambar'    => 'bunga2.png',
+        ]);
+        Gambar_Produk::create([
+            'produk_id' => 4,
+            'gambar'    => 'bunga2.png',
+        ]);
+        Gambar_Produk::create([
+            'produk_id' => 4,
+            'gambar'    => 'bunga.webp',
+        ]);
     }
 }

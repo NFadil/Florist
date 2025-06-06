@@ -1,32 +1,18 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class ProductController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Product $produk)
+    public function index()
     {
-        $produk   = Product::latest()->get();
-        $category = Category::latest()->get();
-
-        return view('HomePage.Produk', [
-            'products'   => $produk,
-            'categories' => $category,
-        ]);
-    }
-    public function category(Category $category)
-    {
-        $cat = Category::latest()->get();
-        return view('HomePage.Produk', [
-            'products'   => $category->products,
-            'categories' => $cat,
-        ]);
+        $username = Auth::user()->name;
+        return view('AdminPage.Dashboard', ['username' => $username]);
     }
 
     /**

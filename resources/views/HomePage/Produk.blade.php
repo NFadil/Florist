@@ -55,13 +55,16 @@
                 <!-- contoh kategori statis -->
                 @foreach ($categories as $cat)
                     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <div class="card text-center border-primary category-card" style="cursor: pointer;">
-                            <div class="card-body py-3">
-                                <img src="/img/{{ $cat->gambar }}" alt="{{ $cat->name }}"
-                                    style="width:40px; height:40px;" class="mb-2">
-                                <p class="mb-0 fw-semibold text-primary">{{ $cat->name }}</p>
+                        <a href="/categories/{{ $cat->slug }}"
+                            class="rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-200 text-decoration-none">
+                            <div class="card text-center border-primary category-card" style="cursor: pointer;">
+                                <div class="card-body py-3">
+                                    <img src="/img/{{ $cat->gambar }}" alt="{{ $cat->name }}"
+                                        style="width:40px; height:40px;" class="mb-2">
+                                    <p class="mb-0 fw-semibold text-primary">{{ $cat->name }}</p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 @endforeach
             </div>

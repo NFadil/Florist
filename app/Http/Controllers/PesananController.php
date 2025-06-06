@@ -1,32 +1,16 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class PesananController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Product $produk)
+    public function index()
     {
-        $produk   = Product::latest()->get();
-        $category = Category::latest()->get();
-
-        return view('HomePage.Produk', [
-            'products'   => $produk,
-            'categories' => $category,
-        ]);
-    }
-    public function category(Category $category)
-    {
-        $cat = Category::latest()->get();
-        return view('HomePage.Produk', [
-            'products'   => $category->products,
-            'categories' => $cat,
-        ]);
+        return view('Homepage.Pesanan');
     }
 
     /**
