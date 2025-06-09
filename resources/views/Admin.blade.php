@@ -24,6 +24,11 @@
             background: linear-gradient(135deg, #fc5aa5, #e64d6c);
 
         }
+
+        .btn-pink {
+            background: linear-gradient(135deg, #fc5aa5, #e64d6c);
+
+        }
     </style>
 
 </head>

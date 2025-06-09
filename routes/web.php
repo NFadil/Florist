@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +20,12 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+    //admin
     Route::get('/admin', [AdminController::class, 'index'])->middleware('userakses:admin')->name('Admin.Admin');
+    Route::get('/profile', [ProfileController::class, 'index'])->middleware('userakses:admin')->name('Profile.show');
+    Route::get('/galery', [GaleryController::class, 'index'])->middleware('userakses:admin')->name('Galery.show');
+
+    //user
     Route::post('/keranjang', [KeranjangController::class, 'store'])->middleware('userakses:customer')->name('keranjang.store');
     Route::get('/keranjang', [KeranjangController::class, 'index'])->middleware('userakses:customer')->name('Keranjang.show');
     Route::post('/keranjang/update', [KeranjangController::class, 'update'])->middleware('userakses:customer')->name('keranjang.update');

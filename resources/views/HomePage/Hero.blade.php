@@ -33,9 +33,10 @@
                         Bunga bukan hanya hadiah, tapi cara manis menyampaikan rasa. Buket kami hadir dengan tampilan
                         elegan, wangi segar, dan sentuhan personal di setiap rangkaiannya.
                     </p>
-                    <button class="btn text-dark px-4 py-2 rounded-pill" style="background-color:#ffc7bd">Lanjut ke
+                    <a href="{{ route('Produk.show') }}" class="btn text-dark px-4 py-2 rounded-pill"
+                        style="background-color:#ffc7bd">Lanjut ke
                         Produk
-                    </button>
+                    </a>
                 </div>
 
                 <div class="col-md-6 d-flex justify-content-center justify-content-md-end mt-4 mt-md-0">

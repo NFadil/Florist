@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             GambarProdukSeeder::class,
             UserSeeder::class,
+            CompanySeeder::class,
+            GalerySeeder::class,
         ]);
     }
 }

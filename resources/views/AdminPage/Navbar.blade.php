@@ -33,7 +33,20 @@
     <div class="sidebar-heading">
         Interface
     </div>
+
+    <!-- Nav Item - Charts -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('Profile.show') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Profile</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('Galery.show') }}">
+            <i class="fas fa-fw fa-camera"></i>
+            <span>Galery</span></a>
+    </li>
     <!-- Nav Item - Pages Collapse Menu -->
+
     <li class="nav-item 
         {{-- {{ request()->routeIs('Admin.Profile') || request()->routeIs('Admin.Portofolio') || request()->routeIs('Admin.About') ? 'active' : '' }} --}}
          ">
@@ -45,9 +58,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" href="
-                {{-- {{ route('Admin.Profile') }} --}}
-                 ">Profile</a>
+                <a class="collapse-item" href="{{ route('Profile.show') }}">Profile</a>
                 <a class="collapse-item" href="
                 {{-- {{ route('Admin.Portofolio') }} --}}
                  ">Portofolio</a>
