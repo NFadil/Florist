@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -18,10 +19,14 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     Route::get('/admin', [AdminController::class, 'index'])->middleware('userakses:admin')->name('Admin.Admin');
-    Route::get('/keranjang', function () {
-        return view('Homepage.Keranjang');
-    });
+    Route::post('/keranjang', [KeranjangController::class, 'store'])->middleware('userakses:customer')->name('keranjang.store');
+    Route::get('/keranjang', [KeranjangController::class, 'index'])->middleware('userakses:customer')->name('Keranjang.show');
+    Route::post('/keranjang/update', [KeranjangController::class, 'update'])->middleware('userakses:customer')->name('keranjang.update');
+    Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->middleware('userakses:customer')->name('keranjang.destroy');
+
+    Route::post('/pesan', [PesananController::class, 'store'])->middleware('userakses:customer')->name('Pesanan.store');
     Route::get('/pesanan', [PesananController::class, 'index'])->middleware('userakses:customer')->name('User.Pesanan');
+
 });
 
 //rederect login

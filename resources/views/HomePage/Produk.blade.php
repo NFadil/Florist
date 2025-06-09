@@ -1,5 +1,6 @@
 @extends('Home')
 @section('title', 'Produk')
+
 @section('content')
     <style>
         .category-card:hover {
@@ -36,28 +37,24 @@
     <div class="container pt-5 pb-5 mt-5">
         <!-- Search -->
         <div class="row mb-4 align-items-center">
-            <div class="col-md-10 mb-3 mb-md-0 position-relative">
-                <input type="text" class="form-control ps-5 py-3 rounded-pill" placeholder="Cari produk...">
-                <span class="position-absolute top-50 translate-middle-y" style="left: 15px; color: #6c757d;">
-                    <i data-lucide="search"></i>
-                </span>
+            <div class="container mt-4">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Cari produk...">
+                    </div>
+                </div>
             </div>
-            <div class="col-md-2">
-                <button type="submit" style="background-color:#ffc7bd"
-                    class="btn w-100 py-3 rounded-pill fw-semibold">Cari</button>
-            </div>
+
         </div>
 
-        <!-- Kategori Card -->
+        <!-- Kategori -->
         <div class="mb-5 text-center">
             <h5 class="mb-3">Kategori</h5>
             <div class="row g-3 justify-content-center">
-                <!-- contoh kategori statis -->
                 @foreach ($categories as $cat)
                     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                        <a href="/categories/{{ $cat->slug }}"
-                            class="rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-200 text-decoration-none">
-                            <div class="card text-center border-primary category-card" style="cursor: pointer;">
+                        <a href="/categories/{{ $cat->slug }}" class="text-decoration-none">
+                            <div class="card text-center border-primary category-card">
                                 <div class="card-body py-3">
                                     <img src="/img/{{ $cat->gambar }}" alt="{{ $cat->name }}"
                                         style="width:40px; height:40px;" class="mb-2">
@@ -70,35 +67,34 @@
             </div>
         </div>
 
-        <!-- Produk Grid -->
+        <!-- Produk -->
         <h5 class="mb-3">Semua Produk</h5>
-        <div class="row g-4">
+        <div class="row g-4" id="productList">
             @foreach ($products as $index => $item)
-                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 product-card">
                     <div class="card h-100 shadow-sm">
                         <img src="/img/{{ $item->gambars->first()->gambar ?? 'default.png' }}"
-                            class="card-img-top img-fluid" alt="Produk" style="height: 200px; object-fit: cover;">
+                            class="card-img-top img-fluid" alt="{{ $item->nama }}"
+                            style="height: 200px; object-fit: cover;">
                         <div class="card-body d-flex flex-column">
-                            <h6 class="card-title mb-1">{{ $item->nama }}</h6>
+                            <h6 class="card-title mb-1 card-title">{{ $item->nama }}</h6>
                             <small class="text-muted mb-1">{{ $item->category->name }}</small>
-                            <p class="card-text fw-bold mb-2">Rp.{{ number_format($item->harga, 0, ',', '.') }}</p>
+                            <p class="card-text fw-bold mb-2">Rp {{ number_format($item->harga, 0, ',', '.') }}</p>
                             <button type="button" class="btn text-dark px-4 py-2 rounded-pill"
                                 style="background-color:#ffc7bd" data-bs-toggle="modal" data-bs-target="#productDetailModal"
                                 onclick='showProductDetail(@json($item))'>
                                 Lihat Detail
                             </button>
-
                         </div>
                     </div>
                 </div>
 
                 @if ($index + 1 == 6)
-                    <!-- Promo Banner -->
+                    <!-- Promo -->
                     <div class="col-12 mb-4">
                         <div class="promo-banner position-relative">
-                            <img src="img/s.png" alt="Promo Spesial 1" class="img-fluid w-100" style="border-radius: 10px;">
-                            <div
-                                class="promo-content position-absolute top-50 start-50 translate-middle text-center text-white">
+                            <img src="/img/s.png" alt="Promo Spesial" class="img-fluid w-100">
+                            <div class="promo-content text-center">
                                 <h4>Promo Spesial!</h4>
                                 <p>Dapatkan diskon hingga 20% untuk pembelian buket bunga hari ini.</p>
                             </div>
@@ -107,6 +103,10 @@
                 @endif
             @endforeach
         </div>
+        <div class="no-results text-center fw-bold text-danger mt-4" id="noResults" style="display: none;">
+            Produk tidak ditemukan.
+        </div>
+
 
         <!-- Modal Produk -->
         <div class="modal fade" id="productDetailModal" tabindex="-1" aria-hidden="true">
@@ -141,24 +141,79 @@
                                 <input type="text" class="form-control text-center" value="1" id="productQty">
                                 <button class="btn btn-outline-secondary" type="button" id="increaseQty">+</button>
                             </div>
-                            <button class="btn text-white fw-semibold" style="background-color:#ffc7bd">Masukkan ke
-                                Keranjang</button>
+                            <form method="POST" action="{{ route('keranjang.store') }}">
+                                @csrf
+                                <input type="hidden" name="product_id" id="modalProductId">
+                                <input type="hidden" name="qty" id="modalProductQtyValue" value="1">
+                                <input type="hidden" name="category_id" id="modalCategoryId">
+                                <button class="btn text-white fw-semibold" style="background-color:#ffc7bd">
+                                    Masukkan ke Keranjang
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').on('keyup', function() {
+                const value = $(this).val().toLowerCase();
+                let visibleCount = 0;
+
+                $('#productList .product-card').each(function() {
+                    const title = $(this).find('.card-title').text().toLowerCase();
+                    if (title.includes(value)) {
+                        $(this).show();
+                        visibleCount++;
+                    } else {
+                        $(this).hide();
+                    }
+                });
+
+                if (visibleCount === 0) {
+                    $('#noResults').show();
+                } else {
+                    $('#noResults').hide();
+                }
+            });
+        });
+    </script>
 
     <script>
+        let qtyInput = document.getElementById('productQty');
+        let qtyHidden = document.getElementById('modalProductQtyValue');
+
+        document.getElementById('increaseQty').addEventListener('click', () => {
+            qtyInput.value = parseInt(qtyInput.value) + 1;
+            qtyHidden.value = qtyInput.value;
+        });
+
+        document.getElementById('decreaseQty').addEventListener('click', () => {
+            if (parseInt(qtyInput.value) > 1) {
+                qtyInput.value = parseInt(qtyInput.value) - 1;
+                qtyHidden.value = qtyInput.value;
+            }
+        });
+
+        qtyInput.addEventListener('input', function() {
+            qtyHidden.value = this.value;
+        });
+
         function showProductDetail(product) {
             document.getElementById('modalProductName').textContent = product.nama;
             document.getElementById('modalProductCategory').textContent = "Kategori: " + product.category.name;
-            document.getElementById('modalProductPrice').textContent = "Rp. " + new Intl.NumberFormat('id-ID').format(
-                product.harga);
+            document.getElementById('modalProductPrice').textContent = "Rp " + new Intl.NumberFormat('id-ID').format(product
+                .harga);
             document.getElementById('modalProductDescription').textContent = product.deskripsi;
             document.getElementById('modalProductStock').textContent = product.stok;
-            document.getElementById('productQty').value = 1;
+            document.getElementById('modalProductId').value = product.id;
+            document.getElementById('modalCategoryId').value = product.category.id; // ✅ Tambahan penting
+
+            qtyInput.value = 1;
+            qtyHidden.value = 1;
 
             const carouselInner = document.getElementById('modalCarouselInner');
             carouselInner.innerHTML = '';
@@ -168,14 +223,13 @@
                     const div = document.createElement('div');
                     div.className = 'carousel-item' + (index === 0 ? ' active' : '');
                     div.innerHTML =
-                        `<img src="/img/${img.gambar}" class="d-block w-100 rounded" style="object-fit:cover; height:300px;">`;
+                        `<img src="/img/${img.gambar}" class="d-block w-100 rounded" style="object-fit:cover; height:300px;" alt="Gambar Produk">`;
                     carouselInner.appendChild(div);
                 });
             } else {
                 carouselInner.innerHTML =
-                    '<div class="carousel-item active"><img src="/img/default.png" class="d-block w-100"></div>';
+                    '<div class="carousel-item active"><img src="/img/default.png" class="d-block w-100" alt="Gambar Default"></div>';
             }
-
         }
     </script>
 

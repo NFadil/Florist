@@ -20,15 +20,20 @@
                  @guest
                      <!-- User belum login -->
                      <a href="{{ route('login') }}" class="btn text-dark px-4 py-2 rounded-pill"
-                         style="background-color:#ffc7bd">Masuk</a>
+                         style="background-color:#ffc7bd" title="Login ke akun Anda"><i
+                             data-lucide="circle-user-round"></i></a>
                  @else
                      <!-- User sudah login -->
+                     <a href="/keranjang" class="position-relative text-dark" title="Keranjang Anda">
+                         <i data-lucide="shopping-cart" class="shake-on-hover"></i>
+                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                             {{ $count }}
+                         </span>
+                     </a>
+
                      <a href="{{ route('logout') }}" class="btn text-dark px-4 py-2 rounded-pill"
                          onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                         style="background-color:#ffc7bd">Logout</a>
-                     <a href="/keranjang" class="text-dark">
-                         <i data-lucide="shopping-cart" class="shake-on-hover"></i>
-                     </a>
+                         style="background-color:#ffc7bd" title="Keluar Dari Akun"><i data-lucide="log-out"></i></a>
 
                      <!-- Form logout tersembunyi -->
                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

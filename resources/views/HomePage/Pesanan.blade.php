@@ -47,23 +47,44 @@
         <h3 class="mb-4 text-center text-md-start">Pesanan Saya</h3>
 
         <!-- Contoh Order Card -->
-        <div class="order-card">
-            <h5 class="order-title">Pesanan #12345</h5>
-            <p class="order-info mb-1"><strong>Produk:</strong> Buket Tulip Pink</p>
-            <p class="order-info mb-1"><strong>Jumlah:</strong> 2</p>
-            <p class="order-info mb-1"><strong>Total Harga:</strong> Rp400.000</p>
-            <p class="order-info mb-1"><strong>Tanggal Pesanan:</strong> 3 Juni 2025</p>
-            <span class="order-status">Dikonfirmasi</span>
-        </div>
+        <div class="row g-4">
+            @foreach ($pesanan as $item)
+                <div class="col-12">
+                    <div class="card shadow-sm p-3 d-flex flex-column flex-md-row align-items-md-center">
+                        <div class="d-flex flex-column align-items-center me-md-3 mb-3 mb-md-0">
 
-        <div class="order-card">
-            <h5 class="order-title">Pesanan #12346</h5>
-            <p class="order-info mb-1"><strong>Produk:</strong> Buket Boneka</p>
-            <p class="order-info mb-1"><strong>Jumlah:</strong> 1</p>
-            <p class="order-info mb-1"><strong>Total Harga:</strong> Rp250.000</p>
-            <p class="order-info mb-1"><strong>Tanggal Pesanan:</strong> 5 Juni 2025</p>
-            <span class="order-status">Dikonfirmasi</span>
-        </div>
+                            <img src="/img/{{ $item->product->gambars->first()->gambar ?? 'default.png' }}"
+                                alt="{{ $item->product->nama }}" class="rounded mt-2"
+                                style="width: 100px; height: 100px; object-fit: cover;">
+                            <br>
+                            <span
+                                class="order-status badge 
+                                @if ($item->status === 'pending') bg-warning text-dark 
+                                @elseif($item->status === 'sukses') bg-success 
+                                @elseif($item->status === 'batal') bg-danger @endif">
+                                {{ ucfirst($item->status) }}
+                            </span>
+                        </div>
+                        <!-- Info Produk -->
+                        <div class="flex-grow-1 ps-md-3">
+                            <h6 class="fw-semibold mb-1"><strong>No Transaksi:</strong> {{ $item->id_pemesanan }}</h6>
 
+                            <p class="order-info mb-1"><strong>Produk:</strong> {{ $item->product->nama }}</p>
+                            <p class="order-info mb-1"><strong>Jumlah:</strong> {{ $item->qty }}</p>
+                            <p class="order-info mb-1">
+                                <strong>Total Harga:</strong> Rp.{{ number_format($item->total_harga, 0, ',', '.') }}
+                            </p>
+                            <p class="order-info mb-1"><strong>Tanggal Pesanan:</strong>
+                                {{ $item->created_at->diffForHumans() }}
+                            </p>
+
+                        </div>
+
+                    </div>
+                </div>
+            @endforeach
+
+
+        </div>
     </div>
 @endsection
