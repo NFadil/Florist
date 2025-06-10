@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('promos', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('deskripsi');
+            $table->text('banner');
             $table->timestamps();
         });
     }

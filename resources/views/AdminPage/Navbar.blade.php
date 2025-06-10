@@ -2,9 +2,7 @@
 <ul class="navbar-nav bg-gradient-pink sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="
-    {{-- {{ route('Admin.Admin') }} --}}
-     ">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('Admin.Admin') }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <img src="/img/cherry-blossom.png" width="50px" height="50px">
         </div>
@@ -16,12 +14,8 @@
 
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item 
-    {{-- {{ request()->routeIs('Admin.Admin') ? 'active' : '' }} --}}
-     ">
-        <a class="nav-link" href="
-        {{-- {{ route('Admin.Admin') }} --}}
-         ">
+    <li class="nav-item {{ request()->routeIs('Admin.Admin') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('Admin.Admin') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -35,15 +29,26 @@
     </div>
 
     <!-- Nav Item - Charts -->
+
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('Profile.show') }}">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Profile</span></a>
+        <a class="nav-link" href="{{ route('Pesanan.show') }}">
+            <i class="fas fa-fw fa-envelope"></i>
+            <span>Pesanan</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('Galery.show') }}">
-            <i class="fas fa-fw fa-camera"></i>
-            <span>Galery</span></a>
+        <a class="nav-link" href="{{ route('Transakasi.show') }}">
+            <i class="fas fa-fw fa-list-alt"></i>
+            <span>Transaksi Info</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('Produk.admin') }}">
+            <i class="fas fa-fw fa-cube"></i>
+            <span>Produk</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('Categori.admin') }}">
+            <i class="fas fa-fw fa-th-large"></i>
+            <span>Categori</span></a>
     </li>
     <!-- Nav Item - Pages Collapse Menu -->
 
@@ -59,13 +64,8 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Custom Components:</h6>
                 <a class="collapse-item" href="{{ route('Profile.show') }}">Profile</a>
-                <a class="collapse-item" href="
-                {{-- {{ route('Admin.Portofolio') }} --}}
-                 ">Portofolio</a>
-                <a class="collapse-item" href="
-                {{-- {{ route('Admin.About') }} --}}
-                 ">About Us</a>
-                <a class="collapse-item" href="cards.html">Blog</a>
+                <a class="collapse-item" href="{{ route('Galery.show') }}">Galery</a>
+                <a class="collapse-item" href="{{ route('Promo.show') }}">Promo</a>
             </div>
         </div>
     </li>

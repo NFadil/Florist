@@ -37,9 +37,17 @@ class PesananController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function adminshow()
     {
-        //
+        $username = Auth::user()->name;
+        $trans    = Transaksi::all();
+        return view('AdminPage.Pesanan', ['username' => $username, 'pesanan' => $trans]);
+    }
+    public function admintransaksi()
+    {
+        $username = Auth::user()->name;
+        $trans    = Transaksi::all();
+        return view('AdminPage.Transaksi', ['username' => $username, 'pesanan' => $trans]);
     }
 
     /**

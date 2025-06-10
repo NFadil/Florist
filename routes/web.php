@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PromoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +26,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->middleware('userakses:admin')->name('Admin.Admin');
     Route::get('/profile', [ProfileController::class, 'index'])->middleware('userakses:admin')->name('Profile.show');
     Route::get('/galery', [GaleryController::class, 'index'])->middleware('userakses:admin')->name('Galery.show');
-
+    Route::get('/promo', [PromoController::class, 'index'])->middleware('userakses:admin')->name('Promo.show');
+    Route::get('/pesanan-admin', [PesananController::class, 'adminshow'])->middleware('userakses:admin')->name('Pesanan.show');
+    Route::get('/transaksi-admin', [PesananController::class, 'admintransaksi'])->middleware('userakses:admin')->name('Transakasi.show');
+    Route::get('/produk-admin', [ProductController::class, 'adminshow'])->middleware('userakses:admin')->name('Produk.admin');
+    Route::get('/category-admin', [CategoryController::class, 'index'])->middleware('userakses:admin')->name('Categori.admin');
     //user
     Route::post('/keranjang', [KeranjangController::class, 'store'])->middleware('userakses:customer')->name('keranjang.store');
     Route::get('/keranjang', [KeranjangController::class, 'index'])->middleware('userakses:customer')->name('Keranjang.show');

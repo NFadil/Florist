@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CompanySeeder::class,
             GalerySeeder::class,
+            PromoSeeder::class,
         ]);
     }
 }
