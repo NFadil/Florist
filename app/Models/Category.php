@@ -11,6 +11,7 @@ class Category extends Model
 {
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
     use HasFactory;
+    protected $table    = 'categories'; // atau nama tabel kamu
     protected $fillable = ['nama', 'slug', 'gambar'];
     public function products(): HasMany
     {

@@ -25,8 +25,10 @@
 
         }
 
-        .btn-pink {
-            background: linear-gradient(135deg, #fc5aa5, #e64d6c);
+        .btn-secondary {
+            background-color: #fc5aa5;
+            border-color: #fc5aa5;
+        }
 
         }
     </style>

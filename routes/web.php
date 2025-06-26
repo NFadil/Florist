@@ -29,8 +29,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/promo', [PromoController::class, 'index'])->middleware('userakses:admin')->name('Promo.show');
     Route::get('/pesanan-admin', [PesananController::class, 'adminshow'])->middleware('userakses:admin')->name('Pesanan.show');
     Route::get('/transaksi-admin', [PesananController::class, 'admintransaksi'])->middleware('userakses:admin')->name('Transakasi.show');
-    Route::get('/produk-admin', [ProductController::class, 'adminshow'])->middleware('userakses:admin')->name('Produk.admin');
     Route::get('/category-admin', [CategoryController::class, 'index'])->middleware('userakses:admin')->name('Categori.admin');
+
     //user
     Route::post('/keranjang', [KeranjangController::class, 'store'])->middleware('userakses:customer')->name('keranjang.store');
     Route::get('/keranjang', [KeranjangController::class, 'index'])->middleware('userakses:customer')->name('Keranjang.show');
@@ -39,6 +39,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/pesan', [PesananController::class, 'store'])->middleware('userakses:customer')->name('Pesanan.store');
     Route::get('/pesanan', [PesananController::class, 'index'])->middleware('userakses:customer')->name('User.Pesanan');
+
+    //produk admin
+    Route::get('/produk-admin', [ProductController::class, 'adminshow'])->middleware('userakses:admin')->name('Produk.admin');
+    Route::get('/tambah-produk', [ProductController::class, 'create'])->middleware('userakses:admin')->name('TambahProduk.admin');
+    Route::post('/tambah-produk', [ProductController::class, 'store'])->middleware('userakses:admin')->name('Tambah.produk');
+    Route::delete('/produk-gambar/{id}', [ProductController::class, 'hapusGambar'])->name('produk.gambar.destroy');
+    Route::delete('/produkdelete/{id}', [ProductController::class, 'destroy'])->middleware('userakses:admin')->name('delete.produk');
+    Route::put('/update-produk/{slug}', [ProductController::class, 'update'])->middleware('userakses:admin')->name('update.produk');
+    Route::get('/edit-produk/{slug}', [ProductController::class, 'edit'])->middleware('userakses:admin')->name('UpdateProduk.admin');
 
 });
 

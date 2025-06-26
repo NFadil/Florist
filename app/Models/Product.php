@@ -28,4 +28,9 @@ class Product extends Model
     {
         return $this->hasMany(Keranjang::class, 'product_id');
     }
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }
