@@ -131,4 +131,19 @@ class PesananController extends Controller
     {
         //
     }
+    public function ubahStatus(Request $request, $id)
+    {
+        $pesanan = Transaksi::findOrFail($id);
+
+        if ($request->action == 'batal') {
+            $pesanan->status = 'batal';
+        } elseif ($request->action == 'sukses') {
+            $pesanan->status = 'sukses';
+        }
+
+        $pesanan->save();
+
+        return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui.');
+    }
+
 }

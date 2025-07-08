@@ -12,7 +12,7 @@ class Category extends Model
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
     use HasFactory;
     protected $table    = 'categories'; // atau nama tabel kamu
-    protected $fillable = ['nama', 'slug', 'gambar'];
+    protected $fillable = ['name', 'slug', 'gambar'];
     public function products(): HasMany
     {
         return $this->hasMany(Product::class, 'category_id');
@@ -22,4 +22,9 @@ class Category extends Model
     {
         return $this->hasMany(Keranjang::class, 'category_id');
     }
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }

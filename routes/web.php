@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/promo', [PromoController::class, 'index'])->middleware('userakses:admin')->name('Promo.show');
     Route::get('/pesanan-admin', [PesananController::class, 'adminshow'])->middleware('userakses:admin')->name('Pesanan.show');
     Route::get('/transaksi-admin', [PesananController::class, 'admintransaksi'])->middleware('userakses:admin')->name('Transakasi.show');
-    Route::get('/category-admin', [CategoryController::class, 'index'])->middleware('userakses:admin')->name('Categori.admin');
+    Route::post('/admin/pesanan/{id}/ubah-status', [PesananController::class, 'ubahStatus'])->middleware('userakses:admin')->name('pesanan.ubah');
 
     //user
     Route::post('/keranjang', [KeranjangController::class, 'store'])->middleware('userakses:customer')->name('keranjang.store');
@@ -49,6 +49,13 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/update-produk/{slug}', [ProductController::class, 'update'])->middleware('userakses:admin')->name('update.produk');
     Route::get('/edit-produk/{slug}', [ProductController::class, 'edit'])->middleware('userakses:admin')->name('UpdateProduk.admin');
 
+    //kategori admin
+    Route::get('/category-admin', [CategoryController::class, 'index'])->middleware('userakses:admin')->name('Categori.admin');
+    Route::get('/category-Tambah', [CategoryController::class, 'create'])->middleware('userakses:admin')->name('Categori.Tambah');
+    Route::post('/category-Tambah', [CategoryController::class, 'store'])->middleware('userakses:admin')->name('Categori.Tambah.store');
+    Route::delete('/category-hapus/{id}', [CategoryController::class, 'destroy'])->middleware('userakses:admin')->name('Categori.Hapus');
+    Route::get('/category-update/{slug}', [CategoryController::class, 'edit'])->middleware('userakses:admin')->name('Categori.Edit');
+    Route::put('/category-update/{id}', [CategoryController::class, 'update'])->middleware('userakses:admin')->name('Categori.update');
 });
 
 //rederect login

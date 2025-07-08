@@ -38,8 +38,16 @@
                                             <td>{{ $item->catatan }}</td>
                                             <td>{{ $item->created_at->diffForHumans() }}</td>
                                             <td>
-                                                <span class="badge badge-warning text-white status-badge">
-                                                    {{ $item->status }}
+                                                <span
+                                                    class="badge text-white
+        @if ($item->status == 'pending') bg-warning
+        @elseif ($item->status == 'sukses')
+            bg-success
+        @elseif ($item->status == 'batal')
+            bg-danger
+        @else
+            bg-secondary @endif">
+                                                    {{ ucfirst($item->status) }}
                                                 </span>
                                             </td>
                                         </tr>

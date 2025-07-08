@@ -53,7 +53,7 @@
                     <div class="card shadow-sm p-3 d-flex flex-column flex-md-row align-items-md-center">
                         <div class="d-flex flex-column align-items-center me-md-3 mb-3 mb-md-0">
 
-                            <img src="/img/{{ $item->product->gambars->first()->gambar ?? 'default.png' }}"
+                            <img src="{{ asset('storage/' . $item->product->gambars->first()->gambar ?? 'default.png') }}"
                                 alt="{{ $item->product->nama }}" class="rounded mt-2"
                                 style="width: 100px; height: 100px; object-fit: cover;">
                             <br>

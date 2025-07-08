@@ -20,7 +20,7 @@
                                     <input type="checkbox" class="form-check-input mb-1" style="scale: 1.3;" name="produk[]"
                                         value="{{ $item->id }}">
                                 </label>
-                                <img src="/img/{{ $item->product->gambars->first()->gambar ?? 'default.png' }}"
+                                <img src="{{ asset('storage/' . $item->product->gambars->first()->gambar ?? 'default.png') }}"
                                     alt="{{ $item->product->nama }}" class="rounded mt-2"
                                     style="width: 100px; height: 100px; object-fit: cover;">
                             </div>

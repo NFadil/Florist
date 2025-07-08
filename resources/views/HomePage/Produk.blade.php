@@ -56,7 +56,7 @@
                         <a href="/categories/{{ $cat->slug }}" class="text-decoration-none">
                             <div class="card text-center border-primary category-card">
                                 <div class="card-body py-3">
-                                    <img src="/img/{{ $cat->gambar }}" alt="{{ $cat->name }}"
+                                    <img src="{{ asset('storage/' . $cat->gambar) }}" alt="{{ $cat->name }}"
                                         style="width:40px; height:40px;" class="mb-2">
                                     <p class="mb-0 fw-semibold text-primary">{{ $cat->name }}</p>
                                 </div>
@@ -73,7 +73,7 @@
             @foreach ($products as $index => $item)
                 <div class="col-6 col-sm-4 col-md-3 col-lg-2 product-card">
                     <div class="card h-100 shadow-sm">
-                        <img src="/img/{{ $item->gambars->first()->gambar ?? 'default.png' }}"
+                        <img src="{{ asset('storage/' . $item->gambars->first()->gambar ?? 'default.png') }}"
                             class="card-img-top img-fluid" alt="{{ $item->nama }}"
                             style="height: 200px; object-fit: cover;">
                         <div class="card-body d-flex flex-column">
@@ -222,8 +222,10 @@
                 product.gambars.forEach((img, index) => {
                     const div = document.createElement('div');
                     div.className = 'carousel-item' + (index === 0 ? ' active' : '');
+                    const baseStorageUrl = "{{ asset('storage') }}";
                     div.innerHTML =
-                        `<img src="/img/${img.gambar}" class="d-block w-100 rounded" style="object-fit:cover; height:300px;" alt="Gambar Produk">`;
+                        `<img src="${baseStorageUrl}/${img.gambar}" class="d-block w-100 rounded" style="object-fit:cover; height:300px;" alt="Gambar Produk">`;
+
                     carouselInner.appendChild(div);
                 });
             } else {
